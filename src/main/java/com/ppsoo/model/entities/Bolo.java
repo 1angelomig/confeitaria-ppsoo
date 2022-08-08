@@ -8,6 +8,7 @@ public abstract class Bolo {
     public Cobertura cobertura;
 	public Recheio recheio;
 	public int camada;
+	public int id;
 	
 	public String tipoRecheio() {
 		return this.recheio.recheio();
@@ -19,6 +20,14 @@ public abstract class Bolo {
 	
 	public int quantCamada() {
 		return this.camada;
+	}
+
+	public int getId(){
+		return this.id;
+	}
+
+	public void setId(int id){
+		this.id = id;
 	}
 	
 	public abstract double preco();
