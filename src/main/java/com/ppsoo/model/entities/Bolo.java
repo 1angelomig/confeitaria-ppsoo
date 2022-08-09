@@ -1,35 +1,44 @@
 package com.ppsoo.model.entities;
 
-import com.ppsoo.model.entities.coberturas.Cobertura;
-import com.ppsoo.model.entities.recheios.Recheio;
-
 public abstract class Bolo {
-    
-    public Cobertura cobertura;
-	public Recheio recheio;
+
 	public int camada;
 	public int id;
-	
-	public String tipoRecheio() {
-		return this.recheio.recheio();
-	}
-	
-	public String tipoCobertura() {
-		return this.cobertura.cobertura();
-	}
-	
-	public int quantCamada() {
-		return this.camada;
+	public String cobertura;
+	public String recheio;
+
+	public abstract double preco();
+
+	public int getCamada() {
+		return camada;
 	}
 
-	public int getId(){
-		return this.id;
+	public void setCamada(int camada) {
+		this.camada = camada;
 	}
 
-	public void setId(int id){
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public abstract double preco();
-	
+
+	public String getCobertura() {
+		return cobertura;
+	}
+
+	public void setCobertura(String cobertura) {
+		this.cobertura = cobertura;
+	}
+
+	public String getRecheio() {
+		return recheio;
+	}
+
+	public void setRecheio(String recheio) {
+		this.recheio = recheio;
+	}
+
 }

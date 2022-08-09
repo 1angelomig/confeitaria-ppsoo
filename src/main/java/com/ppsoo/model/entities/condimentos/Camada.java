@@ -8,14 +8,14 @@ public class Camada extends CondimentDecorator {
 	
 	public Camada(Bolo bolo) {
 		this.bolo = bolo;
-		this.cobertura = bolo.cobertura;
-		this.recheio = bolo.recheio;
-		this.camada = (bolo.quantCamada() + 1);
+		this.setCobertura(bolo.getCobertura());
+		this.setRecheio(bolo.getRecheio());
+		this.setCamada(bolo.getCamada() + 1);
 	}
 	
 	@Override
 	public double preco() {
-		return this.bolo.preco() + 3.00;
+		return this.bolo.preco() + 5;
 	}
 
 }

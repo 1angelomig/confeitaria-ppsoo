@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@page import="com.ppsoo.model.entities.Pedido"%>
+<%@page import="com.ppsoo.model.entities.Bolo"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,14 +25,40 @@
         <main class="d-flex justify-content-center">
             <div class="card text-center" style="margin: 30px;">
                 <div class="card-body">
-                    <%
-                        String mensagem = request.getParameter("msg");
-                        
-                        if(mensagem != null){
-                    %>
-                    <h5 class="card-title"><%= mensagem %></h5>
-                  <p class="card-text">Monte seu bolo do seu jeito, de forma fácil e rápida.</p>
-                  <a href="ServletPedido?op=criarBolo" class="btn btn-primary">Fazer Outro Pedido</a>
+                <%
+                    String message = (String) session.getAttribute("msg");
+                    Pedido pedido = (Pedido) session.getAttribute("pedido");
+                    Bolo bolo = pedido.getBolo();
+
+                    if(message != null){
+                %>
+                    <h5 class="card-title"><%= message %></h5>
+                <%
+                    }
+                %>
+                    <div class="card text-start" style="margin: 10px">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Características do Bolo:</br>
+                                    Camadas: <%= bolo.getCamada() %></br>
+                                    <%
+                                        if(bolo.getRecheio() != null){
+                                    %>
+                                    Recheio: <%= bolo.getRecheio() %></br>
+                                    <%
+                                        }
+
+                                        if(bolo.getCobertura() != null){
+                                    %>
+                                    Cobertura: <%= bolo.getCobertura() %></br>
+                                    <%
+                                        }
+                                    %>
+                                Preço: R$<%= pedido.getPreco() %>
+                            </p>
+                        </div>
+                    </div>
+                    <a href="ServletPedido?op=criarBolo" class="btn btn-primary" style="margin-top: 5px">Fazer Outro Pedido</a>
                 </div>
               </div>
         </main>

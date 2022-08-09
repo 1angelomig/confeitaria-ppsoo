@@ -4,4 +4,7 @@ import com.ppsoo.model.entities.Bolo;
 
 public abstract class CondimentDecorator extends Bolo {
 
+    @Override
+    public abstract double preco();
+    
 }
