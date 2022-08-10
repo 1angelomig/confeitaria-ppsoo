@@ -1,21 +1,16 @@
 package com.ppsoo.model.entities;
 
 public class Pedido {
-    // Cliente cliente;
+    Cliente cliente;
     Bolo bolo;
     int id;
     double preco;
 
-    public Pedido(Bolo bolo) {
-        this.bolo = bolo;
-        this.preco = bolo.preco();
-        // this.cliente = cliente;
+    public Pedido(Bolo bolo, Cliente cliente) {
+    this.bolo = bolo;
+    this.cliente = cliente;
+    this.preco = bolo.preco();
     }
-
-    // public Pedido(Bolo bolo, Cliente cliente) {
-    // this.bolo = bolo;
-    // this.cliente = cliente;
-    // }
 
     public Bolo getBolo() {
         return bolo;
@@ -41,12 +36,12 @@ public class Pedido {
         this.preco = preco;
     }
 
-    // public Cliente getCliente() {
-    // return cliente;
-    // }
+    public Cliente getCliente() {
+    return cliente;
+    }
 
-    // public void setCliente(Cliente cliente) {
-    // this.cliente = cliente;
-    // }
+    public void setCliente(Cliente cliente) {
+    this.cliente = cliente;
+    }
 
 }

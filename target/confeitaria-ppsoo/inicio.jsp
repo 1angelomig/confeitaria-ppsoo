@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@page import="com.ppsoo.model.entities.Cliente"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,38 +15,28 @@
     <div style="height: 100vh; width: 800px; background-color: rgb(227, 231, 210);">
         <nav class="navbar bg-light">
             <div class="container">
-                <a class="navbar-brand" href="index.jsp">
+                <a class="navbar-brand" href="ServletCliente">
                     <img src="logo.png" alt="" width="80" height="70">
                 </a>
                 <button style="margin-right: 10px;" class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEquipe" aria-controls="offcanvasRight">Equipe</button>
             </div>
         </nav>
-        <%
-            String message = (String) session.getAttribute("msg");
-
-            if(message != null){
-        %>
-        <div class="card text-center" style="margin: 30px;">
-            <div class="card-body">
-                <h5 class="card-title"><%= message %></h5>
-            </div>
-        </div>  
-        <%
-            }
-        %>
-        <c:remove var="msg" scope="session"/>
         <main class="d-flex justify-content-center">
-
+            <%
+                Cliente cliente = (Cliente) session.getAttribute("cliente");
+            %>
             <div class="card text-center" style="margin: 30px;">
                 <div class="card-body">
-                  <h5 class="card-title">Cadastro</h5>
-                  <a href="ServletCliente?op=cadastro" class="btn btn-primary">Realizar Cadastro</a>
+                  <h5 class="card-title">Faça seu pedido!</h5>
+                  <p class="card-text">Monte seu bolo do seu jeito, de forma fácil e rápida.</p>
+                  <a href="ServletPedido?op=criarPedido" class="btn btn-primary">Fazer Pedido</a>
                 </div>
             </div>
             <div class="card text-center" style="margin: 30px;">
                 <div class="card-body">
-                  <h5 class="card-title">Login</h5>
-                  <a href="ServletCliente?op=login" class="btn btn-primary">Realizar Login</a>
+                  <h5 class="card-title">Pedidos Feitos</h5>
+                  <p class="card-text">Veja os pedidos que você realizou.</p>
+                  <a href="ServletPedido?op=verPedidos&idCliente=<%= cliente.getId() %>" class="btn btn-primary">Ver Pedidos</a>
                 </div>
             </div>
         </main>

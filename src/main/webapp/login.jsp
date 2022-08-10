@@ -20,32 +20,21 @@
                 <button style="margin-right: 10px;" class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEquipe" aria-controls="offcanvasRight">Equipe</button>
             </div>
         </nav>
-        <%
-            String message = (String) session.getAttribute("msg");
-
-            if(message != null){
-        %>
-        <div class="card text-center" style="margin: 30px;">
-            <div class="card-body">
-                <h5 class="card-title"><%= message %></h5>
-            </div>
-        </div>  
-        <%
-            }
-        %>
-        <c:remove var="msg" scope="session"/>
-        <main class="d-flex justify-content-center">
-
-            <div class="card text-center" style="margin: 30px;">
+        <main>
+            <div class="card" style="margin: 30px;">
                 <div class="card-body">
-                  <h5 class="card-title">Cadastro</h5>
-                  <a href="ServletCliente?op=cadastro" class="btn btn-primary">Realizar Cadastro</a>
-                </div>
-            </div>
-            <div class="card text-center" style="margin: 30px;">
-                <div class="card-body">
-                  <h5 class="card-title">Login</h5>
-                  <a href="ServletCliente?op=login" class="btn btn-primary">Realizar Login</a>
+                    <h5 class="card-title">Login</h5>
+                    <form method="post" action="ServletCliente?op=login">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="senha" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="senha" name="senha">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                    </form>
                 </div>
             </div>
         </main>

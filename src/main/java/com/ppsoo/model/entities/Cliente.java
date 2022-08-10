@@ -3,8 +3,13 @@ package com.ppsoo.model.entities;
 public class Cliente {
 
     int id;
-    String nome;
-    String cpf;
+    String email;
+    String senha;
+
+    public Cliente(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
 
     public int getId() {
         return id;
@@ -14,20 +19,20 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
 }

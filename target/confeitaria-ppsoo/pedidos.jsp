@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@page import="com.ppsoo.model.entities.Pedido"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +16,7 @@
     <div style="height: 100vh; width: 800px; background-color: rgb(227, 231, 210);">
         <nav class="navbar bg-light">
             <div class="container">
-                <a class="navbar-brand" href="index.jsp">
+                <a class="navbar-brand" href="ServletCliente">
                     <img src="logo.png" alt="" width="80" height="70">
                 </a>
                 <button style="margin-right: 10px;" class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEquipe" aria-controls="offcanvasRight">Equipe</button>
@@ -29,25 +31,53 @@
             <div class="card-body">
                 <h5 class="card-title"><%= message %></h5>
             </div>
-        </div>  
+        </div>
         <%
             }
         %>
-        <c:remove var="msg" scope="session"/>
-        <main class="d-flex justify-content-center">
+            <c:remove var="msg" scope="session"/>
+        <main class="d-flex flex-wrap justify-content-center">
+            <%
+
+                List<Pedido> pedidos = (List<Pedido>) session.getAttribute("pedidos");
+
+                if(pedidos.size() > 0){
+                    for(Pedido pedido : pedidos){
+            %>
 
             <div class="card text-center" style="margin: 30px;">
                 <div class="card-body">
-                  <h5 class="card-title">Cadastro</h5>
-                  <a href="ServletCliente?op=cadastro" class="btn btn-primary">Realizar Cadastro</a>
+                    <h5 class="card-title">Pedido <%= pedido.getId() %></h5>
+                    <div class="card text-start" style="margin: 10px">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b>Características do Bolo:</b></br>
+                                    <b>Camadas:</b> <%= pedido.getBolo().getCamada() %></br>
+                                    <%
+                                        if(pedido.getBolo().getRecheio() != null){
+                                    %>
+                                    <b>Recheio:</b> <%= pedido.getBolo().getRecheio() %></br>
+                                    <%
+                                        }
+
+                                        if(pedido.getBolo().getCobertura() != null){
+                                    %>
+                                    <b>Cobertura:</b> <%= pedido.getBolo().getCobertura() %></br>
+                                    <%
+                                        }
+                                    %>
+                                <b>Preço:</b> R$<%= pedido.getPreco() %>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card text-center" style="margin: 30px;">
-                <div class="card-body">
-                  <h5 class="card-title">Login</h5>
-                  <a href="ServletCliente?op=login" class="btn btn-primary">Realizar Login</a>
-                </div>
-            </div>
+
+            <%
+                    }
+                }
+            %>
+
         </main>
     </div>
 

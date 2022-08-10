@@ -3,13 +3,7 @@ package com.ppsoo.controller.servlets;
 import java.io.IOException;
 
 import com.ppsoo.model.entities.Bolo;
-import com.ppsoo.model.entities.BoloBase;
-import com.ppsoo.model.entities.Pedido;
-import com.ppsoo.model.entities.condimentos.Camada;
-import com.ppsoo.model.entities.condimentos.coberturas.CoberturaChocolate;
-import com.ppsoo.model.entities.condimentos.coberturas.CoberturaMorango;
-import com.ppsoo.model.entities.condimentos.recheios.RecheioChocolate;
-import com.ppsoo.model.entities.condimentos.recheios.RecheioMorango;
+import com.ppsoo.model.repositories.Facade;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,11 +17,20 @@ public class ServletPedido extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String operacao = req.getParameter("op");
-
-        if (operacao != null && operacao.equals("criarBolo")) {
+        
+        if (operacao != null && operacao.equals("criarPedido")) {
             req.getRequestDispatcher("/pedido.jsp").forward(req, resp);
+        }
+        
+        if (operacao != null && operacao.equals("verPedidos")){
+            int idCliente = Integer.parseInt(req.getParameter("idCliente"));
+            HttpSession session = req.getSession();
+            
+            session.setAttribute("pedidos", Facade.getCurrentInstance().lerPedidos(Facade.getCurrentInstance().getCliente(idCliente)));
+            System.out.println(Facade.getCurrentInstance().lerPedidos(Facade.getCurrentInstance().getCliente(idCliente)).size());
+
+            req.getRequestDispatcher("/pedidos.jsp").forward(req, resp);
         }
 
     }
@@ -37,41 +40,20 @@ public class ServletPedido extends HttpServlet {
         String recheio = req.getParameter("recheioBolo");
         String cobertura = req.getParameter("coberturaBolo");
         int camadas = Integer.parseInt(req.getParameter("camadasBolo"));
+        int idCliente = Integer.parseInt(req.getParameter("idCliente"));
+        System.out.println(idCliente);
 
-        BoloBase bolo = new BoloBase();
-        Bolo boloAux = bolo;
+        Bolo bolo = Facade.getCurrentInstance().criaBolo();
+        bolo = Facade.getCurrentInstance().adicionaRecheio(bolo, recheio);
+        bolo = Facade.getCurrentInstance().adicionaCobertura(bolo, cobertura);
+        bolo = Facade.getCurrentInstance().adicionaCamadas(bolo, camadas);
 
-        if (recheio != null) {
-            if (recheio.equals("recheioMorango")) {
-                boloAux = new RecheioMorango(boloAux);
-            }
-            if (recheio.equals("recheioChocolate")) {
-                boloAux = new RecheioChocolate(boloAux);
-            }
-        }
-
-        if (cobertura != null) {
-            if (cobertura.equals("coberturaMorango")) {
-                boloAux = new CoberturaMorango(boloAux);
-            }
-            if (cobertura.equals("coberturaChocolate")) {
-                boloAux = new CoberturaChocolate(boloAux);
-            }
-        }
-
-        if(camadas > 0){
-            for (int i = 0; i < camadas; i++) {
-                boloAux = new Camada(boloAux);
-            }
-        }
-
-        Pedido pedido = new Pedido(boloAux);
+        Facade.getCurrentInstance().fazPedido(bolo, Facade.getCurrentInstance().getCliente(idCliente));
 
         HttpSession session = req.getSession();
         session.setAttribute("msg", "Pedido feito!");
-        session.setAttribute("pedido", pedido);
 
-        resp.sendRedirect("pedidofeito.jsp");
+        resp.sendRedirect("ServletPedido?op=verPedidos&idCliente=" + req.getParameter("idCliente"));
     }
 
 }
