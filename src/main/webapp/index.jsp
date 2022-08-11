@@ -20,6 +20,8 @@
                 <button style="margin-right: 10px;" class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEquipe" aria-controls="offcanvasRight">Equipe</button>
             </div>
         </nav>
+        <c:remove var="cliente" scope="session"/>
+        <c:remove var="pedidos" scope="session"/>
         <%
             String message = (String) session.getAttribute("msg");
 

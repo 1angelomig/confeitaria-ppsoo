@@ -47,9 +47,15 @@ public class ServletCliente extends HttpServlet {
 
         if (operacao != null && operacao.equals("login")) {
             Cliente cliente = Facade.getCurrentInstance().logarCliente(req.getParameter("email"), req.getParameter("senha"));
-            session.setAttribute("cliente", cliente);
-
-            resp.sendRedirect("inicio.jsp");
+            
+            if(cliente != null){
+                session.setAttribute("cliente", cliente);
+                resp.sendRedirect("inicio.jsp");
+            } else {
+                session.setAttribute("msg", "Usuário não cadastrado");
+                resp.sendRedirect("ServletCliente?op=login");
+            }
+            
         }
     }
 

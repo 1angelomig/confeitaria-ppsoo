@@ -10,6 +10,7 @@ import com.ppsoo.model.entities.Pedido;
 import com.ppsoo.model.entities.condimentos.Camada;
 import com.ppsoo.model.entities.condimentos.coberturas.CoberturaChocolate;
 import com.ppsoo.model.entities.condimentos.coberturas.CoberturaMorango;
+import com.ppsoo.model.entities.condimentos.recheios.RecheioChocolate;
 import com.ppsoo.model.entities.condimentos.recheios.RecheioMorango;
 
 public class Facade {
@@ -34,25 +35,20 @@ public class Facade {
         return myself;
     }
 
-    public Bolo criaBolo(){
-        BoloBase bolo = new BoloBase();
-        Bolo boloAux = bolo;
-        return boloAux;
-    }
+    public void fazPedido(String recheio, String cobertura, int camadas, int idCliente){
+        BoloBase boloAux = new BoloBase();
+        Bolo bolo = boloAux;
 
-    public Bolo adicionaRecheio(Bolo bolo, String recheio){
+        //recheios
         if(recheio.equals("recheioMorango")){
             bolo = new RecheioMorango(bolo);
         }
 
         if(recheio.equals("recheioChocolate")){
-            bolo = new RecheioMorango(bolo);
+            bolo = new RecheioChocolate(bolo);
         }
 
-        return bolo;
-    }
-
-    public Bolo adicionaCobertura(Bolo bolo, String cobertura){
+        //coberturas
         if(cobertura.equals("coberturaMorango")){
             bolo = new CoberturaMorango(bolo);
         }
@@ -60,38 +56,33 @@ public class Facade {
         if(cobertura.equals("coberturaChocolate")){
             bolo = new CoberturaChocolate(bolo);
         }
-        
-        return bolo;
-    }
 
-    public Bolo adicionaCamadas(Bolo bolo, int camadas){
+        //camadas
         if(camadas > 0){
             for (int i = 0; i < camadas; i++) {
                 bolo = new Camada(bolo);
             }
         }
-        
-        return bolo;
+
+        //pedido
+        Pedido pedido = new Pedido(bolo, this.getCliente(idCliente));
+        pedido.setId(lastIndexPedido++);
+        this.pedidos.add(pedido);
     }
 
     public void cadastroCliente(String email, String senha){
         Cliente cliente = new Cliente(email, senha);
-        System.out.println("cliente criado");
         cliente.setId(lastIndexCliente++);
-        System.out.println("cliente com id");
         this.clientes.add(cliente);
-        System.out.println("cliente na lista " +  cliente.getId() + " "+ this.clientes.size());
     }
 
     public Cliente logarCliente(String email, String senha){
         for (Cliente cliente : clientes) {
             if(cliente.getEmail().equals(email) && cliente.getSenha().equals(senha)){
-                System.out.println("retornando cliente " + cliente.getId());
                 return cliente;
             }
         }
 
-        System.out.println("retornando nada");
         return null;
     }
 
@@ -105,12 +96,6 @@ public class Facade {
         return null;
     }
 
-    public void fazPedido(Bolo bolo, Cliente cliente){
-        Pedido pedido = new Pedido(bolo, cliente);
-        pedido.setId(lastIndexPedido++);
-        this.pedidos.add(pedido);
-    }
-
     public List<Pedido> lerPedidos(Cliente cliente){
         List<Pedido> pedidosCliente = new ArrayList<>();
         for (Pedido pedido : pedidos) {
@@ -119,7 +104,6 @@ public class Facade {
             }
         }
 
-        System.out.println("retornando pedidos");
         return pedidosCliente;
     }
 

@@ -13,13 +13,16 @@
 </head>
 
 <body class="d-flex justify-content-center">
-    <div style="height: 100vh; width: 800px; background-color: rgb(227, 231, 210);">
+    <div style="min-height: 100vh; width: 800px; background-color: rgb(227, 231, 210);">
         <nav class="navbar bg-light">
             <div class="container">
                 <a class="navbar-brand" href="ServletCliente">
                     <img src="logo.png" alt="" width="80" height="70">
                 </a>
-                <button style="margin-right: 10px;" class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEquipe" aria-controls="offcanvasRight">Equipe</button>
+                <div>
+                    <a href="index.jsp" class="btn btn-outline-danger" tabindex="-1" role="button" aria-disabled="true" style="margin-right: 10px;">Sair</a>
+                    <button style="margin-right: 10px;" class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEquipe" aria-controls="offcanvasRight">Equipe</button>
+                </div>
             </div>
         </nav>
         <%

@@ -18,7 +18,10 @@
                 <a class="navbar-brand" href="ServletCliente">
                     <img src="logo.png" alt="" width="80" height="70">
                 </a>
-                <button style="margin-right: 10px;" class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEquipe" aria-controls="offcanvasRight">Equipe</button>
+                <div>
+                    <a href="index.jsp" class="btn btn-outline-danger" tabindex="-1" role="button" aria-disabled="true" style="margin-right: 10px;">Sair</a>
+                    <button style="margin-right: 10px;" class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEquipe" aria-controls="offcanvasRight">Equipe</button>
+                </div>
             </div>
         </nav>
         <main>

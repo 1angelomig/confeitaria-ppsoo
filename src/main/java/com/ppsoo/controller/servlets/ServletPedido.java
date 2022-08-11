@@ -2,7 +2,6 @@ package com.ppsoo.controller.servlets;
 
 import java.io.IOException;
 
-import com.ppsoo.model.entities.Bolo;
 import com.ppsoo.model.repositories.Facade;
 
 import jakarta.servlet.ServletException;
@@ -28,7 +27,6 @@ public class ServletPedido extends HttpServlet {
             HttpSession session = req.getSession();
             
             session.setAttribute("pedidos", Facade.getCurrentInstance().lerPedidos(Facade.getCurrentInstance().getCliente(idCliente)));
-            System.out.println(Facade.getCurrentInstance().lerPedidos(Facade.getCurrentInstance().getCliente(idCliente)).size());
 
             req.getRequestDispatcher("/pedidos.jsp").forward(req, resp);
         }
@@ -41,14 +39,8 @@ public class ServletPedido extends HttpServlet {
         String cobertura = req.getParameter("coberturaBolo");
         int camadas = Integer.parseInt(req.getParameter("camadasBolo"));
         int idCliente = Integer.parseInt(req.getParameter("idCliente"));
-        System.out.println(idCliente);
 
-        Bolo bolo = Facade.getCurrentInstance().criaBolo();
-        bolo = Facade.getCurrentInstance().adicionaRecheio(bolo, recheio);
-        bolo = Facade.getCurrentInstance().adicionaCobertura(bolo, cobertura);
-        bolo = Facade.getCurrentInstance().adicionaCamadas(bolo, camadas);
-
-        Facade.getCurrentInstance().fazPedido(bolo, Facade.getCurrentInstance().getCliente(idCliente));
+        Facade.getCurrentInstance().fazPedido(recheio, cobertura, camadas, idCliente);
 
         HttpSession session = req.getSession();
         session.setAttribute("msg", "Pedido feito!");

@@ -20,6 +20,20 @@
                 <button style="margin-right: 10px;" class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#canvasEquipe" aria-controls="offcanvasRight">Equipe</button>
             </div>
         </nav>
+        <%
+            String message = (String) session.getAttribute("msg");
+
+            if(message != null){
+        %>
+        <div class="card text-center" style="margin: 30px;">
+            <div class="card-body">
+                <h5 class="card-title"><%= message %></h5>
+            </div>
+        </div>  
+        <%
+            }
+        %>
+        <c:remove var="msg" scope="session"/>
         <main>
             <div class="card" style="margin: 30px;">
                 <div class="card-body">
